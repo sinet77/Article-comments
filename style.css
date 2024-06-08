@@ -54,3 +54,6 @@
   background-color: #17181c;
   transition-duration: 0.4s;
 }
+.selected {
+  background-color: rgb(178, 168, 235);
+}

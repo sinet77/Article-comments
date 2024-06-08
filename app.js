@@ -1,20 +1,25 @@
 (async () => {
+  const deleteSelectedCommentButton = document.querySelector(
+    ".deleteSelectedCommentButton"
+  );
+  let commentsData = [];
+
   async function fetchCommentsData() {
     const response = await fetch(
       "https://jsonplaceholder.typicode.com/comments"
     );
     const data = await response.json();
+    commentsData = data;
     return data;
   }
 
-  async function createComments() {
-    const data = await fetchCommentsData();
+  async function createComments(comments) {
     const app = document.querySelector(".app");
     const headers = document.querySelector(".headers");
     app.innerHTML = "";
     app.appendChild(headers);
 
-    data.forEach((objectInArray) => {
+    comments.forEach((objectInArray) => {
       const mainSection = document.createElement("div");
       mainSection.classList.add("main");
 
@@ -42,9 +47,30 @@
       deleteButton.textContent = "Delete";
       action.appendChild(deleteButton);
 
+      deleteButton.addEventListener("click", () => {
+        deleteComment(objectInArray.id);
+      });
+
+      mainSection.addEventListener("click", () => {
+        mainSection.classList.toggle("selected");
+      });
+
+      deleteSelectedCommentButton.addEventListener("click", () => {
+        if (mainSection.classList.contains("selected")) {
+          deleteComment(objectInArray.id);
+        }
+      });
       app.appendChild(mainSection);
     });
   }
 
-  await createComments();
+  async function deleteComment(elementId) {
+    const newComments = commentsData.filter(
+      (element) => element.id !== elementId
+    );
+
+    createComments(newComments);
+  }
+  const initialComments = await fetchCommentsData();
+  await createComments(initialComments);
 })();
