@@ -2,7 +2,7 @@
   const deleteSelectedCommentButton = document.querySelector(
     ".deleteSelectedCommentButton"
   );
-  let commentsData = [];
+  let commentsData;
 
   async function fetchCommentsData() {
     const response = await fetch(
@@ -65,11 +65,9 @@
   }
 
   async function deleteComment(elementId) {
-    const newComments = commentsData.filter(
-      (element) => element.id !== elementId
-    );
+    commentsData = commentsData.filter((element) => element.id !== elementId);
 
-    createComments(newComments);
+    createComments(commentsData);
   }
   const initialComments = await fetchCommentsData();
   await createComments(initialComments);

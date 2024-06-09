@@ -15,6 +15,7 @@
   border: 1px solid black;
   border-right: none;
   width: 100%;
+  margin-bottom: 5px;
 }
 .headers div {
   height: 100%;
@@ -33,10 +34,12 @@
   border-right: none;
   border-radius: 5px;
   background-color: rgb(184, 223, 233);
+  margin-bottom: 5px;
 }
 .main div {
   height: 100%;
   border-right: 1px solid black;
+  font-size: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
