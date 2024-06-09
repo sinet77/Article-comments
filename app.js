@@ -2,6 +2,7 @@
   const deleteSelectedCommentButton = document.querySelector(
     ".deleteSelectedCommentButton"
   );
+  const userInput = document.querySelector(".user-input");
   let commentsData;
 
   async function fetchCommentsData() {
@@ -69,6 +70,19 @@
 
     createComments(commentsData);
   }
+
+  userInput.addEventListener("input", function (event) {
+    const searchText = event.target.value.toLowerCase();
+    console.log("searchText", searchText);
+    const filteredComments = commentsData.filter(
+      (comment) =>
+        comment.name.toLowerCase().includes(searchText) ||
+        comment.email.toLowerCase().includes(searchText) ||
+        comment.body.toLowerCase().includes(searchText)
+    );
+    createComments(filteredComments);
+  });
+
   const initialComments = await fetchCommentsData();
   await createComments(initialComments);
 })();
